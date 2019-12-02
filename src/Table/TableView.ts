@@ -1,6 +1,6 @@
 import {Rendereble} from "../Interfaces/Interfaces";
 
-export class TableView implements Rendereble{
+export class TableView implements Rendereble {
     _selector: string;
     get selector(): string {
         return this._selector;
@@ -11,27 +11,17 @@ export class TableView implements Rendereble{
     }
 
     private generateHeader(headerModel) {
-        let headers = '';
-        Object.values(headerModel).map(i=>{
-            headers+= `<th> ${i} </th>`
-        });
-
-        return headers;
+        return Object.values(headerModel).map(i => {
+            return `<th> ${i} </th>`
+        }).join(' ');
     }
 
     private generateBody(data, headerModel) {
-        let body = '';
-        data.map(row => {
-            body+=`<tr>${Object.keys(headerModel).map(key =>{
-                if (key === 'displayName') {
-                    return `<td>${row[key]+' '+row['productKey']}</td>`
-                } else {
-                    return `<td>${row[key]}</td>`
-                }
-            })}</tr>`
-        });
-
-        return body;
+        return data.map(row => {
+            return `<tr>${Object.keys(headerModel).map(key => {
+                return (key==='displayName') ? `<td>${row[key] + ' ' + row['productKey']}</td>` : `<td>${row[key]}</td>`;
+            }).join(' ')}</tr>`
+        }).join(' ');
     }
 
     generateTemplate(headerModel, bodyData) {
