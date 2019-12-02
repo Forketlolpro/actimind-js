@@ -1,0 +1,24 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 500px;
+    height: 240px;
+    justify-content: space-around;
+    & > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      lable {
+        width: 120px;
+      }
+    }
+  }
+}

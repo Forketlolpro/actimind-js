@@ -1,5 +1,5 @@
 export class FilterModelItem {
-    private title: string;
+    title: string;
     min: number = Number.MAX_SAFE_INTEGER;
     max: number = 0;
     selectMin:number;
