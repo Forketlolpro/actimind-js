@@ -13,6 +13,7 @@ export class App {
     private http: SimpleHttpClient;
     constructor() {
         this.http = new SimpleHttpClient();
+        this.http.get('./product-data.json');
         this.data = [
             new ReportItem('Ilya', 0, 'Fsorket', 3),
             new ReportItem('Ilyas', 1, 'Dorkdet', 2),

@@ -12,7 +12,7 @@ export class PaginationView {
         document.querySelector(this._selector).innerHTML = this.generateTemplate(+current, +last, +itemsOnPage);
     }
 
-    private generateTemplate(current: number, last: number, itemsOnPage: number) {
+    generatePagesArrangement (current: number, last: number, itemsOnPage: number) {
         let delta = 2,
             left = current - delta,
             right = current + delta + 1,
@@ -31,18 +31,26 @@ export class PaginationView {
         for (let i of range) {
             if (l) {
                 if (i - l === 2) {
-                    rangeWithDots+='<a>'+ l + 1+'</a>';
+                    rangeWithDots+='<a>'+ (l + 1)+'</a>';
                 } else if (i - l !== 1) {
-                    rangeWithDots+='...';
+                    rangeWithDots+='<span>...</span>';
                 }
             }
-            rangeWithDots+='<a>'+i+'</a>';
+            if (i===current) {
+                rangeWithDots+='<a class="current">'+i+'</a>';
+            } else {
+                rangeWithDots+='<a>'+i+'</a>';
+            }
             l = i;
         }
 
+        return rangeWithDots;
+    }
+
+    private generateTemplate(current: number, last: number, itemsOnPage: number) {
         return`
-            <div>
-                <div class="number">${rangeWithDots.toString()}</div>
+
+                <div class="number">${this.generatePagesArrangement(current, last, itemsOnPage).toString()}</div>
                 <select>
                     ${[2,3,4].map((i) => {
                         if (itemsOnPage === i ) {
@@ -51,6 +59,6 @@ export class PaginationView {
                         return `<option value="${i}">${i}</option>`
                     })}
                 </select>
-            </div>`
+`
     }
 }

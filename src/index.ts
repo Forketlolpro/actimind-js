@@ -1,3 +1,4 @@
+import './styles.scss';
 import {App} from "./App/App";
-let hero = new App();
+new App();
 

@@ -1,0 +1,32 @@
+.paginator {
+  display: inline-block;
+
+  select {
+    margin-top: 10px;
+  }
+
+  .number {
+    display: flex;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+    }
+
+    .current {
+      background-color: #4CAF50;
+      color: white;
+    }
+  }
+}
