@@ -1,41 +1,41 @@
-import { Rendereble, Subject} from "../Interfaces/Interfaces";
+import { Subject} from "../Interfaces/Interfaces";
 import {ReportItem} from "../ReportItem/ReportItem";
-import {generateTemplate} from "./generatePaginationTemplate";
+import {PaginationView} from "./PaginationView";
 
-export class Paginator implements Subject, Rendereble {
-    htmlElement: HTMLElement;
+export class Paginator implements Subject {
     public currentPageData: ReportItem[];
     private data: ReportItem[];
     private observers: Array<any> = [];
-    private itemOnPage = 2;
+    private itemsOnPage = 2;
     private currentPage: number;
-    private pagesLength: number;
-    constructor(selector: HTMLElement) {
-        this.htmlElement = selector;
-        this.htmlElement.addEventListener('change', this.changeEventHandler.bind(this));
-        this.htmlElement.addEventListener('click', this.clickEventHandler.bind(this));
+    private pagesTotal: number;
+    private view: PaginationView;
+    constructor(view: PaginationView) {
+        this.view = view;
+        document.querySelector(this.view.selector).addEventListener('change', this.changeEventHandler.bind(this));
+        document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler.bind(this));
     }
 
     private changeEventHandler (e) {
-        this.itemOnPage = e.target.value;
-        this.pagesLength = Math.ceil(this.data.length / this.itemOnPage);
+        this.itemsOnPage = e.target.value;
+        this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
         this.currentPage = 1;
         this.takeCurrentPageElement();
-        this.render();
+        this.show();
         this.notify();
     }
 
     private  clickEventHandler(e: any) {
         if (e.target.closest('.number')) {
-            this.currentPage = e.target.innerHTML;
+            this.currentPage = +e.target.innerHTML;
             this.takeCurrentPageElement();
-            this.render();
+            this.show();
             this.notify();
         }
     }
 
     private takeCurrentPageElement() {
-        this.currentPageData = this.data.slice((this.currentPage - 1) * this.itemOnPage, (this.currentPage) * this.itemOnPage);
+        this.currentPageData = this.data.slice((this.currentPage - 1) * this.itemsOnPage, (this.currentPage) * this.itemsOnPage);
     }
 
     attach(observer: any): void {
@@ -52,12 +52,12 @@ export class Paginator implements Subject, Rendereble {
     }
     initialize(data: ReportItem[]): void {
         this.data = data;
-        this.pagesLength = Math.ceil(this.data.length / this.itemOnPage);
+        this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
         this.currentPage = 1;
-        this.render();
+        this.show();
     }
 
-    render(): void {
-        this.htmlElement.innerHTML = generateTemplate(+this.currentPage, +this.pagesLength, +this.itemOnPage);
+    show(): void {
+        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
     }
 }

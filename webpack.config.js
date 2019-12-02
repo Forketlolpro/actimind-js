@@ -1,10 +1,28 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: path.join(__dirname, '/src/index.ts'),
+   mode: 'development',
+   entry: path.join(__dirname, '/src/index.ts'),
+   devtool: 'inline-source-map',
+   devServer: {
+     contentBase: './dist',
+   },
+   plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+        title: 'Table app',
+        template: 'src/index.html'
+    }),
+    new CopyPlugin([
+        { from: 'assets', to: 'dest' },
+    ]),
+   ],
     output: {
         filename: 'index.js',
-        path: __dirname
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
