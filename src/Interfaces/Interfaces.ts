@@ -5,8 +5,8 @@ export interface Subject {
 }
 
 export interface Rendereble {
-    htmlElement: HTMLElement;
-    render(): void;
+    _selector: string;
+    render(...args: any[]): void;
 }
 
 export interface IHttp {

@@ -1,5 +1,7 @@
-export class PaginationView {
-    private _selector: string;
+import {Rendereble} from "../Interfaces/Interfaces";
+
+export class PaginationView implements Rendereble{
+    _selector: string;
     constructor(selector: string) {
         this._selector = selector;
     }
@@ -12,7 +14,7 @@ export class PaginationView {
         document.querySelector(this._selector).innerHTML = this.generateTemplate(+current, +last, +itemsOnPage);
     }
 
-    generatePagesArrangement (current: number, last: number, itemsOnPage: number) {
+    generatePagesArrangement (current: number, last: number) {
         let delta = 2,
             left = current - delta,
             right = current + delta + 1,
@@ -50,9 +52,9 @@ export class PaginationView {
     private generateTemplate(current: number, last: number, itemsOnPage: number) {
         return`
 
-                <div class="number">${this.generatePagesArrangement(current, last, itemsOnPage).toString()}</div>
+                <div class="number">${this.generatePagesArrangement(current, last).toString()}</div>
                 <select>
-                    ${[2,3,4].map((i) => {
+                    ${[10,20,30].map((i) => {
                         if (itemsOnPage === i ) {
                             return `<option selected value="${i}">${i}</option>`
                         }

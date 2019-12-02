@@ -17,12 +17,12 @@ module.exports = {
             template: 'src/index.html'
         }),
         new CopyPlugin([
-            { from: 'assets', to: 'dest' },
+            { from: 'assets', to: 'dist' },
         ]),
     ],
     output: {
         filename: 'index.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
