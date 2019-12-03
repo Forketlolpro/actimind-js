@@ -76,21 +76,20 @@ export class App {
         this.table.initialize(headerModel, this.paginator.currentPageData, json);
     }
 
-    paginationHandler(currentPageData: any, data): void {
-        console.log('From pagi: ');
-        console.log(data);
+    paginationHandler(currentPageData: any): void {
+        console.log('Pagi handler');
         this.table.initialize(headerModel, currentPageData)
     }
 
     tableHandler(data: any): void {
-        console.log('From table: ');
-        console.log(data);
+        console.log('Table handler');
         this.paginator.initialize(data);
+        this.table.initialize(headerModel, this.paginator.currentPageData);
     }
 
     filterHandler(data: any): void {
-        console.log('From filter: ');
-        console.log(data);
+        console.log('Filter handler');
         this.paginator.initialize(data);
+        this.table.initialize(headerModel, this.paginator.currentPageData, data);
     }
 }

@@ -21,6 +21,7 @@ export class Table implements Subject {
         if (args.length > 0) {
             this.data = args[0];
             this.sortedData = [...args[0]];
+            this.sortingModel.key = '';
         }
         this.headerModel = headerModel;
         this.visibleData = body;

@@ -23,7 +23,6 @@ export class Paginator implements Subject {
         this.currentPage = 1;
         this.takeCurrentPageElement();
         this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
-        this.notify();
     }
 
     private changeEventHandler(e) {
@@ -37,12 +36,13 @@ export class Paginator implements Subject {
 
     private clickEventHandler(e: any) {
         e.stopPropagation();
-        if (e.target.closest('.number')) {
-            this.currentPage = +e.target.innerHTML;
-            this.takeCurrentPageElement();
-            this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
-            this.notify();
+        if (!e.target.closest('.number') || e.target.className) {
+            return false;
         }
+        this.currentPage = +e.target.innerHTML;
+        this.takeCurrentPageElement();
+        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
+        this.notify();
     }
 
     private takeCurrentPageElement() {
@@ -60,7 +60,7 @@ export class Paginator implements Subject {
 
     notify(): void {
         for (const observer of this.observers) {
-            observer(this.currentPageData, this.data);
+            observer(this.currentPageData);
         }
     }
 }

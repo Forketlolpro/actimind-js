@@ -35,7 +35,7 @@ export class PaginationView implements Rendereble{
                 if (i - l === 2) {
                     rangeWithDots+='<a>'+ (l + 1)+'</a>';
                 } else if (i - l !== 1) {
-                    rangeWithDots+='<span>...</span>';
+                    rangeWithDots+='<span class="dots">...</span>';
                 }
             }
             if (i===current) {
