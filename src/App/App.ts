@@ -11,6 +11,7 @@ import {HeaderModelItem} from "../Table/HeaderModelItem";
 import {simulateAsyncRequest} from "../helpers/simulateAsyncRequest";
 
 let headerModel = {
+    image: new HeaderModelItem('', false),
     displayName: new HeaderModelItem('Title', false),
     displays: new HeaderModelItem('Displays', true),
     orders: new HeaderModelItem('Purchase', true),

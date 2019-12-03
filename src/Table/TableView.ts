@@ -22,10 +22,23 @@ export class TableView implements Rendereble {
         }).join(' ');
     }
 
+    generateImageCell(row, key) {
+        return `<td><img src="${IMAGE_PREFIX+row['image']}"></td>`;
+    }
+
+    generateNameCell(row, key) {
+        return `<td>${row[key] + ' ' + row['productKey']}</td>`;
+    }
+
+
+    //от тут так себе получилось(
     private generateBody(data, headerModel) {
         return data.map(row => {
             return `<tr>${Object.keys(headerModel).map(key => {
-                return (key==='displayName') ? `<td>${row[key] + ' ' + row['productKey']}<img src="${IMAGE_PREFIX+row['image']}"></td>` : `<td>${row[key]}</td>`;
+                if (key ==='image') {
+                    return this.generateImageCell(row,key)
+                }
+                return (key==='displayName') ? this.generateNameCell(row,key): `<td>${row[key]}</td>`;
             }).join(' ')}</tr>`
         }).join(' ');
     }
