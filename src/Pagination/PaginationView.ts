@@ -26,7 +26,9 @@ export class PaginationView implements Rendereble{
         if (currentPage + delta < pageCount - 1) {
             range.push("<span class='dots'>. . .</span>")
         }
-        range.unshift(`<a class=${currentPage===1 ? 'current' : ''}>1</a>`);
+        if (pageCount > 1) {
+            range.unshift(`<a class=${currentPage===1 ? 'current' : ''}>1</a>`);
+        }
         range.push(`<a class=${currentPage===pageCount ? 'current' : ''}>${pageCount}</a>`);
         return range.join('')
     }

@@ -11,6 +11,8 @@ export class Filter implements Subject {
     constructor(view: FilterView) {
         this.view = view;
         document.querySelector(this.view._selector).addEventListener('submit', this.submitEventHandler.bind(this));
+        document.querySelector(this.view._selector).addEventListener('focusout', this.blurEventHandler.bind(this));
+        document.querySelector(this.view._selector).addEventListener('keydown', this.keypressEventHandler.bind(this));
     }
 
     initialize(data, model) {
@@ -32,6 +34,22 @@ export class Filter implements Subject {
     notify(): void {
         for (const observer of this.observers) {
             observer(this.filteredData);
+        }
+    }
+
+    keypressEventHandler(e) {
+        if(e.code ==='Enter') {
+            e.preventDefault();
+        }
+    }
+
+    blurEventHandler(e) {
+        let elem = e.target;
+        if (elem.value < this.filterModel[elem.dataset['property']].min) {
+            e.target.value = this.filterModel[elem.dataset['property']].min
+        }
+        if (elem.value > this.filterModel[elem.dataset['property']].max) {
+            e.target.value = this.filterModel[elem.dataset['property']].max
         }
     }
 
