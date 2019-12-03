@@ -14,45 +14,27 @@ export class PaginationView implements Rendereble{
         document.querySelector(this._selector).innerHTML = this.generateTemplate(+current, +last, +itemsOnPage);
     }
 
-    generatePagesArrangement (current: number, last: number) {
-        let delta = 2,
-            left = current - delta,
-            right = current + delta + 1,
-            range = [],
-            rangeWithDots = '',
-            l;
-
-        range.push(1)
-        for (let i = current - delta; i <= current + delta; i++) {
-            if (i >= left && i < right && i < last && i > 1) {
-                range.push(i);
-            }
+    generatePagesArrangementRef (currentPage: number, pageCount: number) {
+        const delta = 2;
+        let range = [];
+        for (let i = Math.max(2, currentPage - delta); i <= Math.min(pageCount - 1, currentPage + delta); i++) {
+            range.push(`<a class=${currentPage===i ? 'current' : ''}>${i}</a>`);
         }
-        range.push(last);
-
-        for (let i of range) {
-            if (l) {
-                if (i - l === 2) {
-                    rangeWithDots+='<a>'+ (l + 1)+'</a>';
-                } else if (i - l !== 1) {
-                    rangeWithDots+='<span class="dots">. . .</span>';
-                }
-            }
-            if (i===current) {
-                rangeWithDots+='<a class="current">'+i+'</a>';
-            } else {
-                rangeWithDots+='<a>'+i+'</a>';
-            }
-            l = i;
+        if (currentPage - delta > 2) {
+            range.unshift("<span class='dots'>. . .</span>")
         }
-
-        return rangeWithDots;
+        if (currentPage + delta < pageCount - 1) {
+            range.push("<span class='dots'>. . .</span>")
+        }
+        range.unshift(`<a class=${currentPage===1 ? 'current' : ''}>1</a>`);
+        range.push(`<a class=${currentPage===pageCount ? 'current' : ''}>${pageCount}</a>`);
+        return range.join('')
     }
 
     private generateTemplate(current: number, last: number, itemsOnPage: number) {
         return`
 
-                <div class="number">${this.generatePagesArrangement(current, last).toString()}</div>
+                <div class="number">${this.generatePagesArrangementRef(current, last).toString()}</div>
                 <form>
                 <select>
                     ${[10,20,30].map((i) => {
@@ -62,7 +44,6 @@ export class PaginationView implements Rendereble{
                         return `<option value="${i}">${i}</option>`
                     })}
                 </select>
-                </form>
-`
+                </form>`
     }
 }

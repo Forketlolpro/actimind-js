@@ -14,14 +14,17 @@ export class FilterView implements Rendereble {
     generateFilterForm(model) {
         return `<form>
                     ${Object.entries(model).map((item) => {
-                      return `<div><lable>${item[1]['title']}: </lable><input data-use="min" data-property="${item[0]}" value="${item[1]['min']}" type="number"><input data-use="max" data-property="${item[0]}" value="${item[1]['max']}" type="number"></div>`  
+                      return `<div><label>${item[1]['title']}: </label>
+                                <input class="form-control" data-use="min" data-property="${item[0]}" value="${item[1]['min']}" type="number">
+                                <input class="form-control" data-use="max" data-property="${item[0]}" value="${item[1]['max']}" type="number">
+                            </div>`  
                     }).join(' ')}
-                    <button type="submit">Apply</button>
+                    <button class="btn btn-primary"type="submit">Apply</button>
                 </form>`
     }
 
     generateTemplate(model) {
-        return `<h1>Filters</h1>${this.generateFilterForm(model)}`
+        return `<h2>Filters</h2>${this.generateFilterForm(model)}`
     }
 
     render(...args: any[]): void {
