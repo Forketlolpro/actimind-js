@@ -17,7 +17,7 @@ export class Paginator implements Subject {
         document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler.bind(this));
     }
 
-    initialize(data: ReportItem[]): void {
+    initialize(data): void {
         this.data = data;
         this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
         this.currentPage = 1;

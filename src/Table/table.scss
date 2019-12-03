@@ -4,6 +4,10 @@
     margin-left: 15px;
   }
 
+  th {
+    cursor: pointer;
+  }
+
   th.desc {
     &::before {
       content: '\002193';

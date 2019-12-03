@@ -8,8 +8,7 @@ import {TableView} from "../Table/TableView";
 import {FilterView} from "../Filter/FilterView";
 import {FilterModelItem} from "../Filter/FilterModelItem";
 import {HeaderModelItem} from "../Table/HeaderModelItem";
-
-let json = require('../assets/product-data2.json');
+import {simulateAsyncRequest} from "../helpers/simulateAsyncRequest";
 
 let headerModel = {
     displayName: new HeaderModelItem('Title', false),
@@ -40,17 +39,19 @@ export class App {
     private http: SimpleHttpClient;
 
     constructor() {
-        this.filter = new Filter(new FilterView('.filter'));
-        this.filter.initialize(json, filterModel);
-        this.filter.attach(this.filterHandler.bind(this));
+        simulateAsyncRequest().then(json=>{
+            this.filter = new Filter(new FilterView('.filter'));
+            this.filter.initialize(json, filterModel);
+            this.filter.attach(this.filterHandler.bind(this));
 
-        this.paginator = new Paginator(new PaginationView('.paginator'));
-        this.paginator.initialize(json);
-        this.paginator.attach(this.paginationHandler.bind(this));
+            this.paginator = new Paginator(new PaginationView('.paginator'));
+            this.paginator.initialize(json);
+            this.paginator.attach(this.paginationHandler.bind(this));
 
-        this.table = new Table(new TableView('.table'));
-        this.table.attach(this.tableHandler.bind(this));
-        this.table.initialize(headerModel, this.paginator.currentPageData, json);
+            this.table = new Table(new TableView('.table'));
+            this.table.attach(this.tableHandler.bind(this));
+            this.table.initialize(headerModel, this.paginator.currentPageData, json);
+        });
     }
 
     paginationHandler(currentPageData: any): void {
