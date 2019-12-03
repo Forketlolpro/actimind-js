@@ -11,7 +11,7 @@ export class Filter implements Subject {
     constructor(view: FilterView) {
         this.view = view;
         document.querySelector(this.view._selector).addEventListener('submit', this.submitEventHandler.bind(this));
-        document.querySelector(this.view._selector).addEventListener('focusout', this.blurEventHandler.bind(this));
+        document.querySelector(this.view._selector).addEventListener('focusout', this.focusoutEventHandler.bind(this));
         document.querySelector(this.view._selector).addEventListener('keydown', this.keypressEventHandler.bind(this));
     }
 
@@ -43,7 +43,10 @@ export class Filter implements Subject {
         }
     }
 
-    blurEventHandler(e) {
+    focusoutEventHandler(e) {
+        if (e.target.type==='submit') {
+            return true;
+        }
         let elem = e.target;
         if (elem.value < this.filterModel[elem.dataset['property']].min) {
             e.target.value = this.filterModel[elem.dataset['property']].min
