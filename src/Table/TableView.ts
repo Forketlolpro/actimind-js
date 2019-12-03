@@ -11,8 +11,8 @@ export class TableView implements Rendereble {
     }
 
     private generateHeader(headerModel) {
-        return Object.values(headerModel).map(i => {
-            return `<th> ${i} </th>`
+        return Object.keys(headerModel).map(key => {
+            return (headerModel[key].sortable) ? `<th data-order='origin' data-property='${key}'> ${headerModel[key].title} </th>` : `<th> ${headerModel[key].title} </th>`;
         }).join(' ');
     }
 

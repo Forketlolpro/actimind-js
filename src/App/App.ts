@@ -11,14 +11,38 @@ import {FilterModelItem} from "../Filter/FilterModelItem";
 let json = require('../assets/product-data2.json');
 
 let headerModel =  {
-    displayName: 'Title',
-    displays: 'Displays',
-    orders: 'Purchases',
-    clicks: 'Clicks ',
-    abandonedUnits: 'Abandoned Units',
-    soldUnits: 'Sold units',
-    revenue: 'Revenue',
-    profit: 'Profit'
+    displayName: {
+        title: 'Title',
+        sortable: false,
+    },
+    displays: {
+        title: 'Displays',
+        sortable: true,
+    },
+    orders: {
+        title: 'Purchase',
+        sortable: true,
+    },
+    clicks: {
+        title: 'Clicks',
+        sortable: true,
+    },
+    abandonedUnits: {
+        title: 'Abandoned Units',
+        sortable: true,
+    },
+    soldUnits: {
+        title: 'Sold units',
+        sortable: true,
+    },
+    revenue: {
+        title: 'Revenue',
+        sortable: true,
+    },
+    profit: {
+        title: 'Profit',
+        sortable: true,
+    },
 };
 
 let filterModel =  {
@@ -48,7 +72,7 @@ export class App {
 
         this.table = new Table(new TableView('.table'));
         this.table.attach(this.tableHandler.bind(this));
-        this.table.initialize(headerModel, this.paginator.currentPageData);
+        this.table.initialize(headerModel, this.paginator.currentPageData, json);
     }
 
     paginationHandler(data: any): void {
@@ -63,6 +87,7 @@ export class App {
     }
 
     filterHandler(data: any): void {
+        console.log('From filter: ');
         console.log(data);
         this.paginator.initialize(data);
     }

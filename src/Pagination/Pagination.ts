@@ -27,6 +27,7 @@ export class Paginator implements Subject {
     }
 
     private clickEventHandler(e: any) {
+        e.stopPropagation();
         if (e.target.closest('.number')) {
             this.currentPage = +e.target.innerHTML;
             this.takeCurrentPageElement();
@@ -60,5 +61,6 @@ export class Paginator implements Subject {
         this.currentPage = 1;
         this.takeCurrentPageElement();
         this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
+        this.notify();
     }
 }

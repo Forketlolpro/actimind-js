@@ -37,6 +37,7 @@ export class Filter implements Subject {
 
     submitEventHandler(e) {
         e.preventDefault();
+        e.stopPropagation();
         for (let i = 0; i < e.target.length - 1; i++) {
             if (e.target[i].dataset['use'] === 'min') {
                 this.filterModel[e.target[i].dataset['property']].selectMin = +e.target[i].value;
