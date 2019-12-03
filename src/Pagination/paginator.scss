@@ -3,25 +3,23 @@
 
   select {
     margin-top: 10px;
+    width: 50px;
   }
 
   .number {
     display: flex;
-    a {
+    a, span {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 20px;
-      height: 20px;
+      width: 30px;
+      height: 30px;
+      font-size: 18px;
       cursor: pointer;
     }
 
     span {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 20px;
-      height: 20px;
+      cursor: default;
     }
 
     .current {

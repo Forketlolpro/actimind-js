@@ -35,7 +35,7 @@ export class PaginationView implements Rendereble{
                 if (i - l === 2) {
                     rangeWithDots+='<a>'+ (l + 1)+'</a>';
                 } else if (i - l !== 1) {
-                    rangeWithDots+='<span class="dots">...</span>';
+                    rangeWithDots+='<span class="dots">. . .</span>';
                 }
             }
             if (i===current) {
@@ -53,6 +53,7 @@ export class PaginationView implements Rendereble{
         return`
 
                 <div class="number">${this.generatePagesArrangement(current, last).toString()}</div>
+                <form>
                 <select>
                     ${[10,20,30].map((i) => {
                         if (itemsOnPage === i ) {
@@ -61,6 +62,7 @@ export class PaginationView implements Rendereble{
                         return `<option value="${i}">${i}</option>`
                     })}
                 </select>
+                </form>
 `
     }
 }

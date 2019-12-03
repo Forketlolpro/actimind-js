@@ -1,17 +1,17 @@
 .table {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  img {
+    height: 70px;
+    margin-left: 15px;
+  }
 
   th.desc {
     &::before {
-      content: 'desc';
+      content: '\002193';
     }
   }
-
   th.asc {
     &::before {
-      content: 'asc';
+      content: '\002191';
     }
   }
 }
