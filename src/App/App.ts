@@ -10,7 +10,7 @@ import {FilterModelItem} from "../Filter/FilterModelItem";
 
 let json = require('../assets/product-data2.json');
 
-let headerModel =  {
+let headerModel = {
     displayName: {
         title: 'Title',
         sortable: false,
@@ -45,14 +45,14 @@ let headerModel =  {
     },
 };
 
-let filterModel =  {
+let filterModel = {
     displays: new FilterModelItem('Displays'),
-    orders:  new FilterModelItem('Purchases'),
-    clicks:  new FilterModelItem('Clicks '),
-    abandonedUnits:  new FilterModelItem('Abandoned Units'),
-    soldUnits:  new FilterModelItem('Sold units'),
-    revenue:  new FilterModelItem('Revenue'),
-    profit:  new FilterModelItem('Profit')
+    orders: new FilterModelItem('Purchases'),
+    clicks: new FilterModelItem('Clicks '),
+    abandonedUnits: new FilterModelItem('Abandoned Units'),
+    soldUnits: new FilterModelItem('Sold units'),
+    revenue: new FilterModelItem('Revenue'),
+    profit: new FilterModelItem('Profit')
 };
 
 export class App {
@@ -61,6 +61,7 @@ export class App {
     private table: Table;
     private filter: Filter;
     private http: SimpleHttpClient;
+
     constructor() {
         this.filter = new Filter(new FilterView('.filter'));
         this.filter.initialize(json, filterModel);
@@ -75,15 +76,16 @@ export class App {
         this.table.initialize(headerModel, this.paginator.currentPageData, json);
     }
 
-    paginationHandler(data: any): void {
-        this.table.initialize(headerModel, data)
+    paginationHandler(currentPageData: any, data): void {
+        console.log('From pagi: ');
+        console.log(data);
+        this.table.initialize(headerModel, currentPageData, data)
     }
 
     tableHandler(data: any): void {
-        //инициализмруем фильтр
-        //инициализируем пагинацию
-        //инициализируем табличку
+        console.log('From table: ');
         console.log(data);
+        this.paginator.initialize(data);
     }
 
     filterHandler(data: any): void {

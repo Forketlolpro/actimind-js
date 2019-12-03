@@ -9,7 +9,7 @@ export class Table implements Subject {
     private visibleData: Array<any>;
     private headerModel: object;
     private sortingModel: SortingModel;
-    private sortedData: any[];
+    public sortedData: any[];
 
     constructor(view: TableView) {
         this.view = view;
@@ -18,8 +18,10 @@ export class Table implements Subject {
     }
 
     initialize(headerModel, body, ...args) {
-        this.data = args[0];
-        this.sortedData = [...args[0]];
+        if (args.length > 0) {
+            this.data = args[0];
+            this.sortedData = [...args[0]];
+        }
         this.headerModel = headerModel;
         this.visibleData = body;
         this.show();
@@ -31,6 +33,7 @@ export class Table implements Subject {
             let elem = e.target;
             this.setSortingModel(elem.dataset["property"]);
             this.sort();
+            this.notify();
         }
     }
 
@@ -54,22 +57,21 @@ export class Table implements Subject {
 
     notify(): void {
         for (const observer of this.observers) {
-            observer(this);
+            observer(this.sortedData);
         }
     }
 
     sort() {
         if (this.sortingModel.direction === 'desc') {
-            this.data.sort(this.sortingModel.descCallback.bind(this));
+            this.sortedData.sort(this.sortingModel.descCallback.bind(this));
         }
 
         if (this.sortingModel.direction === 'asc') {
-            this.data.sort(this.sortingModel.ascCallback.bind(this));
+            this.sortedData.sort(this.sortingModel.ascCallback.bind(this));
         }
         if (this.sortingModel.direction === 'origin') {
-            this.data.sort(this.sortingModel.ascCallback.bind(this));
+            this.sortedData = [...this.data];
         }
-        console.log(this.data);
     }
 
     show(): void {

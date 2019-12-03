@@ -51,7 +51,7 @@ export class Paginator implements Subject {
 
     notify(): void {
         for (const observer of this.observers) {
-            observer(this.currentPageData);
+            observer(this.currentPageData, this.data);
         }
     }
 
