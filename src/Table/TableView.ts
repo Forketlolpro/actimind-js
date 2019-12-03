@@ -31,7 +31,7 @@ export class TableView implements Rendereble {
     }
 
 
-    //от тут так себе получилось(
+    //вот тут так себе получилось(
     private generateBody(data, headerModel) {
         return data.map(row => {
             return `<tr>${Object.keys(headerModel).map(key => {
