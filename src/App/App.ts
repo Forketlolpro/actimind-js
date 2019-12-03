@@ -64,5 +64,6 @@ export class App {
 
     filterHandler(data: any): void {
         console.log(data);
+        this.paginator.initialize(data);
     }
 }

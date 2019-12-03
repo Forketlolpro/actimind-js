@@ -2,6 +2,7 @@ import {Subject} from "../Interfaces/Interfaces";
 import {FilterView} from "./FilterView";
 
 export class Filter implements Subject {
+    public filteredData: [];
     private observers: Array<any> = [];
     private view: FilterView;
     private data: any;
@@ -30,7 +31,7 @@ export class Filter implements Subject {
 
     notify(): void {
         for (const observer of this.observers) {
-            observer(this);
+            observer(this.filteredData);
         }
     }
 
@@ -43,21 +44,21 @@ export class Filter implements Subject {
                 this.filterModel[e.target[i].dataset['property']].selectMax = +e.target[i].value;
             }
         }
-
         this.filter();
+        this.notify();
     }
 
     show(): void {
         this.view.render(this.filterModel);
     }
-    //TODO
+
     private filter() {
-        let filterKeys = Object.keys(this.filterModel);
-        this.data.filter(item => {
-            filterKeys.some(elem => {
-                return true;
-            })
-        })
+        let self = this;
+        this.filteredData = this.data.filter(item => {
+            return Object.keys(this.filterModel).every(key => {
+                return (item[key] <= self.filterModel[key].selectMax) && (item[key] >= self.filterModel[key].selectMin);
+            });
+        });
     }
 
     private calculateRange() {
@@ -67,7 +68,7 @@ export class Filter implements Subject {
                     this.filterModel[key].max = item[key]
                 }
 
-                if (item[key] < this.filterModel[key].max) {
+                if (item[key] < this.filterModel[key].min) {
                     this.filterModel[key].min = item[key]
                 }
             })
