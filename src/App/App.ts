@@ -7,42 +7,19 @@ import {PaginationView} from "../Pagination/PaginationView";
 import {TableView} from "../Table/TableView";
 import {FilterView} from "../Filter/FilterView";
 import {FilterModelItem} from "../Filter/FilterModelItem";
+import {HeaderModelItem} from "../Table/HeaderModelItem";
 
 let json = require('../assets/product-data2.json');
 
 let headerModel = {
-    displayName: {
-        title: 'Title',
-        sortable: false,
-    },
-    displays: {
-        title: 'Displays',
-        sortable: true,
-    },
-    orders: {
-        title: 'Purchase',
-        sortable: true,
-    },
-    clicks: {
-        title: 'Clicks',
-        sortable: true,
-    },
-    abandonedUnits: {
-        title: 'Abandoned Units',
-        sortable: true,
-    },
-    soldUnits: {
-        title: 'Sold units',
-        sortable: true,
-    },
-    revenue: {
-        title: 'Revenue',
-        sortable: true,
-    },
-    profit: {
-        title: 'Profit',
-        sortable: true,
-    },
+    displayName: new HeaderModelItem('Title', false),
+    displays: new HeaderModelItem('Displays', true),
+    orders: new HeaderModelItem('Purchase', true),
+    clicks: new HeaderModelItem('Clicks', true),
+    abandonedUnits: new HeaderModelItem('Abandoned Units', true),
+    soldUnits: new HeaderModelItem('Sold units', true),
+    revenue: new HeaderModelItem('Revenue', true),
+    profit: new HeaderModelItem('Profit', true)
 };
 
 let filterModel = {
@@ -77,18 +54,15 @@ export class App {
     }
 
     paginationHandler(currentPageData: any): void {
-        console.log('Pagi handler');
         this.table.initialize(headerModel, currentPageData)
     }
 
     tableHandler(data: any): void {
-        console.log('Table handler');
         this.paginator.initialize(data);
         this.table.initialize(headerModel, this.paginator.currentPageData);
     }
 
     filterHandler(data: any): void {
-        console.log('Filter handler');
         this.paginator.initialize(data);
         this.table.initialize(headerModel, this.paginator.currentPageData, data);
     }
