@@ -10,9 +10,13 @@ export class TableView implements Rendereble {
         this._selector = selector;
     }
 
-    private generateHeader(headerModel) {
+    private generateHeader(headerModel, sortingModel) {
         return Object.keys(headerModel).map(key => {
-            return (headerModel[key].sortable) ? `<th data-order='origin' data-property='${key}'> ${headerModel[key].title} </th>` : `<th> ${headerModel[key].title} </th>`;
+            let htmlClass = '';
+            if (sortingModel.key === key) {
+                htmlClass = sortingModel.direction;
+            }
+            return (headerModel[key].sortable) ? `<th class='${htmlClass}' data-property='${key}'> ${headerModel[key].title} </th>` : `<th> ${headerModel[key].title} </th>`;
         }).join(' ');
     }
 
@@ -24,14 +28,14 @@ export class TableView implements Rendereble {
         }).join(' ');
     }
 
-    generateTemplate(headerModel, bodyData) {
+    generateTemplate(headerModel, bodyData, sortingModel) {
         return `<table>
-                    <thead>${this.generateHeader(headerModel)}</thead>
+                    <thead>${this.generateHeader(headerModel, sortingModel)}</thead>
                     <tbody>${this.generateBody(bodyData, headerModel)}</tbody>
                 </table>`
     }
 
-    render(headerModel, bodyModel) {
-        document.querySelector(this._selector).innerHTML = this.generateTemplate(headerModel, bodyModel);
+    render(headerModel, bodyModel, sortingModel) {
+        document.querySelector(this._selector).innerHTML = this.generateTemplate(headerModel, bodyModel, sortingModel);
     }
 }

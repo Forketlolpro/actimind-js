@@ -75,6 +75,6 @@ export class Table implements Subject {
     }
 
     show(): void {
-        this.view.render(this.headerModel, this.visibleData);
+        this.view.render(this.headerModel, this.visibleData, this.sortingModel);
     }
 }

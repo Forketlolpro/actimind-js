@@ -79,7 +79,7 @@ export class App {
     paginationHandler(currentPageData: any, data): void {
         console.log('From pagi: ');
         console.log(data);
-        this.table.initialize(headerModel, currentPageData, data)
+        this.table.initialize(headerModel, currentPageData)
     }
 
     tableHandler(data: any): void {

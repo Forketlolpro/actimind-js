@@ -17,6 +17,15 @@ export class Paginator implements Subject {
         document.querySelector(this.view.selector).addEventListener('click', this.clickEventHandler.bind(this));
     }
 
+    initialize(data: ReportItem[]): void {
+        this.data = data;
+        this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
+        this.currentPage = 1;
+        this.takeCurrentPageElement();
+        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
+        this.notify();
+    }
+
     private changeEventHandler(e) {
         this.itemsOnPage = e.target.value;
         this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
@@ -53,14 +62,5 @@ export class Paginator implements Subject {
         for (const observer of this.observers) {
             observer(this.currentPageData, this.data);
         }
-    }
-
-    initialize(data: ReportItem[]): void {
-        this.data = data;
-        this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
-        this.currentPage = 1;
-        this.takeCurrentPageElement();
-        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
-        this.notify();
     }
 }
