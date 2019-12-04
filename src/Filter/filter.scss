@@ -3,20 +3,26 @@
   flex-direction: column;
   padding: 14px 0;
 
+  .total {
+    margin-right: 27px;
+    align-self: center;
+  }
+
   form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: stretch;
     width: 500px;
-    justify-content: space-around;
+    justify-content: space-between;
+    flex-wrap: wrap;
     & > div {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
       margin: 3px 0;
 
       label {
-        width: 460px;
+        min-width: 140px;
       }
     }
 
@@ -26,6 +32,16 @@
 
     input {
       margin: 0 5px;
+      max-width: 160px;
+      min-width: 160px;
+    }
+
+    .resetFilter {
+      border: none;
+      background: none;
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
     }
   }
 }

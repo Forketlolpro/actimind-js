@@ -18,7 +18,7 @@ module.exports = {
             template: 'src/index.html'
         }),
         new CopyPlugin([
-            { from: 'assets', to: 'dist' },
+            { from: path.join(__dirname, '/src/assets'), to: 'dist' },
         ]),
     ],
     output: {

@@ -1,8 +1,6 @@
-import {ReportItem} from "../ReportItem/ReportItem";
 import {Paginator} from "../Pagination/Pagination";
 import {Table} from "../Table/Table";
 import {Filter} from "../Filter/Filter";
-import {SimpleHttpClient} from "../SimpleHttpClient/SimpleHttpClient";
 import {PaginationView} from "../Pagination/PaginationView";
 import {TableView} from "../Table/TableView";
 import {FilterView} from "../Filter/FilterView";
@@ -33,11 +31,9 @@ let filterModel = {
 };
 
 export class App {
-    private data: ReportItem[];
     private paginator: Paginator;
     private table: Table;
     private filter: Filter;
-    private http: SimpleHttpClient;
 
     constructor() {
         simulateAsyncRequest().then(json=>{
@@ -65,6 +61,7 @@ export class App {
     }
 
     filterHandler(data: any): void {
+        console.log(data);
         this.paginator.initialize(data);
         this.table.initialize(headerModel, this.paginator.currentPageData, data);
     }

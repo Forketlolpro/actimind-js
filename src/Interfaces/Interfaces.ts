@@ -9,6 +9,3 @@ export interface Rendereble {
     render(...args: any[]): void;
 }
 
-export interface IHttp {
-    get(url: string)
-}

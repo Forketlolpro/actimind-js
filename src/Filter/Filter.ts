@@ -13,12 +13,14 @@ export class Filter implements Subject {
         document.querySelector(this.view._selector).addEventListener('submit', this.submitEventHandler.bind(this));
         document.querySelector(this.view._selector).addEventListener('focusout', this.focusoutEventHandler.bind(this));
         document.querySelector(this.view._selector).addEventListener('keydown', this.keypressEventHandler.bind(this));
+        document.querySelector(this.view._selector).addEventListener('click', this.clickEventHandler.bind(this));
     }
 
     initialize(data, model) {
         this.filterModel = model;
         this.data = data;
         this.calculateRange();
+        this.filter();
         this.show();
     }
 
@@ -37,6 +39,15 @@ export class Filter implements Subject {
         }
     }
 
+    clickEventHandler (e) {
+        e.stopPropagation();
+        if(e.target.className === 'resetFilter') {
+            this.filterModel[e.target.dataset['property']].selectMin = this.filterModel[e.target.dataset['property']].min;
+            this.filterModel[e.target.dataset['property']].selectMax = this.filterModel[e.target.dataset['property']].max;
+            this.show();
+        }
+    }
+
     keypressEventHandler(e) {
         if(e.code ==='Enter') {
             e.preventDefault();
@@ -44,25 +55,29 @@ export class Filter implements Subject {
     }
 
     focusoutEventHandler(e) {
-        if (e.target.type==='submit') {
+        if (e.target.tagName==='BUTTON') {
             return true;
         }
         let elem = e.target;
-        if (elem.value < this.filterModel[elem.dataset['property']].min) {
-            e.target.value = this.filterModel[elem.dataset['property']].min
+        if (elem.value <= this.filterModel[elem.dataset['property']].min) {
+            e.target.value = this.filterModel[elem.dataset['property']].min;
         }
-        if (elem.value > this.filterModel[elem.dataset['property']].max) {
-            e.target.value = this.filterModel[elem.dataset['property']].max
+        if (elem.value >= this.filterModel[elem.dataset['property']].max) {
+            e.target.value = this.filterModel[elem.dataset['property']].max;
         }
+
+        this.filterModel[elem.dataset['property']]['select'+elem.dataset['use']] = +elem.value;
+        this.show();
     }
 
     submitEventHandler(e) {
         e.preventDefault();
         e.stopPropagation();
         for (let i = 0; i < e.target.length - 1; i++) {
-            if (e.target[i].dataset['use'] === 'min') {
+            if (e.target[i].dataset['use'] === 'Min') {
                 this.filterModel[e.target[i].dataset['property']].selectMin = +e.target[i].value;
-            } else {
+            }
+            if (e.target[i].dataset['use'] === 'Max') {
                 this.filterModel[e.target[i].dataset['property']].selectMax = +e.target[i].value;
             }
         }

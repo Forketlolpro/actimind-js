@@ -1,10 +1,9 @@
 import {Subject} from "../Interfaces/Interfaces";
-import {ReportItem} from "../ReportItem/ReportItem";
 import {PaginationView} from "./PaginationView";
 
 export class Paginator implements Subject {
-    public currentPageData: ReportItem[];
-    private data: ReportItem[];
+    public currentPageData: any[];
+    private data: any[];
     private observers: Array<any> = [];
     private itemsOnPage = 10;
     private currentPage: number;
