@@ -61,7 +61,6 @@ export class App {
     }
 
     filterHandler(data: any): void {
-        console.log(data);
         this.paginator.initialize(data);
         this.table.initialize(headerModel, this.paginator.currentPageData, data);
     }
