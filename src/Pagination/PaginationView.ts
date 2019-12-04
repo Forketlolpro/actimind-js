@@ -10,8 +10,8 @@ export class PaginationView implements Rendereble{
         return this._selector;
     }
 
-    public render(current: number, last: number, itemsOnPage: number) {
-        document.querySelector(this._selector).innerHTML = this.generateTemplate(+current, +last, +itemsOnPage);
+    public render(current: number, last: number, itemsOnPage: number, totalElements: number) {
+        document.querySelector(this._selector).innerHTML = this.generateTemplate(+current, +last, +itemsOnPage, totalElements);
     }
 
     generatePagesArrangementRef (currentPage: number, pageCount: number) {
@@ -33,7 +33,7 @@ export class PaginationView implements Rendereble{
         return range.join('')
     }
 
-    private generateTemplate(current: number, last: number, itemsOnPage: number) {
+    private generateTemplate(current: number, last: number, itemsOnPage: number, totalElements: number) {
         return`
 
                 <div class="number">${this.generatePagesArrangementRef(current, last).toString()}</div>
@@ -46,6 +46,7 @@ export class PaginationView implements Rendereble{
                         return `<option value="${i}">${i}</option>`
                     })}
                 </select>
+                <span class="total">Total: ${totalElements}</span>
                 </form>`
     }
 }

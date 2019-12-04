@@ -21,7 +21,7 @@ export class Paginator implements Subject {
         this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
         this.currentPage = 1;
         this.takeCurrentPageElement();
-        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
+        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage, this.data.length);
     }
 
     private changeEventHandler(e) {
@@ -29,7 +29,7 @@ export class Paginator implements Subject {
         this.pagesTotal = Math.ceil(this.data.length / this.itemsOnPage);
         this.currentPage = 1;
         this.takeCurrentPageElement();
-        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
+        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage, this.data.length);
         this.notify();
     }
 
@@ -40,7 +40,7 @@ export class Paginator implements Subject {
         }
         this.currentPage = +e.target.innerHTML;
         this.takeCurrentPageElement();
-        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage);
+        this.view.render(this.currentPage, this.pagesTotal, this.itemsOnPage, this.data.length);
         this.notify();
     }
 
