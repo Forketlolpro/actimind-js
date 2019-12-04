@@ -1,4 +1,4 @@
-import {Rendereble} from "../Interfaces/Interfaces";
+import {Rendereble} from "../interfaces/interfaces";
 
 const IMAGE_PREFIX = 'https://s3.eu-central-1.amazonaws.com/showcase-demo-images/fashion/images/';
 

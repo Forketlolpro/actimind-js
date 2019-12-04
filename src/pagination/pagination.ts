@@ -1,5 +1,5 @@
-import {Subject} from "../Interfaces/Interfaces";
-import {PaginationView} from "./PaginationView";
+import {Subject} from "../interfaces/interfaces";
+import {PaginationView} from "./pagination-view";
 
 export class Paginator implements Subject {
     public currentPageData: any[];

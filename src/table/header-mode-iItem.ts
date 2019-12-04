@@ -1,4 +1,4 @@
-export class HeaderModelItem {
+export class HeaderModeIItem {
     title: string;
     sortable: boolean;
     constructor(title: string, sortable: boolean) {

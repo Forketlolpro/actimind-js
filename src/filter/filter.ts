@@ -1,5 +1,5 @@
-import {Subject} from "../Interfaces/Interfaces";
-import {FilterView} from "./FilterView";
+import {Subject} from "../interfaces/interfaces";
+import {FilterView} from "./filter-view";
 
 export class Filter implements Subject {
     public filteredData: [];

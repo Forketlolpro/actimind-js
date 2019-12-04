@@ -1,4 +1,4 @@
-import {Rendereble} from "../Interfaces/Interfaces";
+import {Rendereble} from "../interfaces/interfaces";
 
 export class PaginationView implements Rendereble{
     _selector: string;

@@ -14,7 +14,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Table app',
+            title: 'table app',
             template: 'src/index.html'
         }),
         new CopyPlugin([

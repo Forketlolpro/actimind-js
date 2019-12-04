@@ -1,6 +1,6 @@
-import {Subject} from "../Interfaces/Interfaces";
-import {TableView} from "./TableView";
-import {SortingModel} from "./SortingModel";
+import {Subject} from "../interfaces/interfaces";
+import {TableView} from "./table-view";
+import {SortingModel} from "./sorting-model";
 
 export class Table implements Subject {
     private observers: Array<any> = [];
